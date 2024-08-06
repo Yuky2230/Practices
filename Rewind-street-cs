@@ -1,0 +1,308 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Rewind_WPF_02
+{
+    /// <summary>
+    /// Street.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class Street : Page
+
+    {
+        List<string> text = new List<string>();
+        List<string> text00 = new List<string>();
+        List<string> text0 = new List<string>();
+        List<string> text1 = new List<string>();
+        List<string> text2 = new List<string>();
+
+        
+        //A1,A2
+        public string[] aimage1 = { "a2.png", "a3.png", "a4.png", "money.png" };
+
+        public int index = 0;
+
+
+        public Street()
+        {
+            InitializeComponent();
+            
+        }
+
+        private void StreetGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            Player.Name = NameInput.Text;
+
+            //Next
+            text.Add("▒ ▒ Detected a new language, ▒ translating to English immediately ▒ ▒ ");
+            text.Add("Hello? Hello? Are you okay? Are you hurt? ");
+
+            //A1
+            text00.Add("You woke up. I was worried about you because you were just lying there on the street.");
+            //A2
+            text00.Add("That's fine. Don't worry about it. We might have time to talk about that later.");
+
+
+            //Next2
+            text1.Add("My name is Sohn Byoung-Hee, I am a priest in a chuch.");
+            text1.Add("Have you ever heard about Cheondoism?");
+
+
+            //Next1
+            text0.Add("By the way, What is on your wrist?? It has 3 red dots on a plate with leather band. It looks like a combination of clock and bracelet. Also, You look different from us ....");
+            text0.Add("Hmmm. Well, We should not talk longer here. Would you like to go with me?");
+
+           
+            //Next3
+            text2.Add("What is your name?");
+            text2.Add("That is a good idea. There are many Japanese police here who are watching people walking around, It is not good to stand out to them. Plese follow me.");
+            text2.Add("I think It would help you to stay here. It is not much but please take them.");
+
+            Name.Text = "???";
+            Talk1.Text = "";
+
+            Next1.Visibility = Visibility.Collapsed;
+            A1.Visibility = Visibility.Collapsed;
+
+            A3.Visibility = Visibility.Collapsed;
+            A4.Visibility = Visibility.Collapsed;
+            NameInput.Visibility = Visibility.Collapsed;
+            a1image.Visibility = Visibility.Collapsed;
+            Sohn.Visibility = Visibility.Collapsed;
+            Enter.Visibility = Visibility.Collapsed;
+            Move.Visibility = Visibility.Collapsed;
+            Next2.Visibility = Visibility.Collapsed;
+            Next3.Visibility = Visibility.Collapsed;
+            Ending1.Visibility = Visibility.Collapsed;
+            SmartWatch.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            Korean.Visibility = Visibility.Collapsed;
+            Name.Text = "???";
+
+            if (index <= text.Count)
+            {
+                Talk1.Text = text[index];
+
+                if (index < (text.Count - 1))
+                {
+
+                    index++;
+
+                }
+
+                else
+                {
+
+                    index = 0;
+
+                    Blackout.Visibility = Visibility.Collapsed;
+
+                    A1.Visibility = Visibility.Visible;
+                    a1image.Visibility = Visibility.Visible;
+                    a1image.Source = new BitmapImage(new Uri(aimage1[0], UriKind.Relative));
+
+
+                    ButtonImage.Visibility = Visibility.Collapsed;
+                    Next.Visibility = Visibility.Collapsed;
+
+
+                }
+
+            }
+
+        }
+
+        private void A1_Click(object sender, RoutedEventArgs e)
+        {
+            A1.Visibility = Visibility.Collapsed;
+            a1image.Visibility = Visibility.Collapsed;
+
+            Next2.Visibility = Visibility.Visible;
+            ButtonImage.Visibility = Visibility.Visible;
+            Sohn.Visibility = Visibility.Visible;
+
+            Talk1.Text = text00[0];
+           
+
+        }
+
+        private void Next2_Click(object sender, RoutedEventArgs e)
+        {
+            Name.Text = "Sohn";
+
+            if (index <= text1.Count)
+            {
+                Talk1.Text = text1[index];
+
+                if (index < text.Count -1)
+                {
+
+                    index++;
+                }
+                else
+                {
+                    index = 0;
+
+                    a1image.Visibility = Visibility.Visible;
+                    a1image.Source = new BitmapImage(new Uri(aimage1[1], UriKind.Relative));
+
+                    A2.Visibility = Visibility.Visible;
+
+                    Next2.Visibility = Visibility.Collapsed;
+                    ButtonImage.Visibility = Visibility.Collapsed;
+
+                }
+
+
+            }
+
+
+        }
+
+
+        private void A2_Click(object sender, RoutedEventArgs e)
+        {
+               A2.Visibility = Visibility.Collapsed;
+               a1image.Visibility = Visibility.Collapsed;
+
+               Next3.Visibility = Visibility.Visible;
+               ButtonImage.Visibility = Visibility.Visible;
+
+
+               Talk1.Text = text00[1];
+           
+
+        }
+
+        private void Next3_Click(object sender, RoutedEventArgs e)
+        {
+            NameInput.Visibility = Visibility.Visible;
+            Enter.Visibility = Visibility.Visible;
+
+           
+            Talk1.Text = text2[index];
+
+                
+             Next3.Visibility = Visibility.Collapsed;
+             ButtonImage.Visibility = Visibility.Collapsed;
+                
+        }
+
+        private void Enter_Click(object sender, RoutedEventArgs e)
+        {
+            Player.Name = NameInput.Text;
+
+            Talk1.Text = Player.Name + " ... That is a nice name. I will remember it.";
+
+            Next1.Visibility = Visibility.Visible;
+            ButtonImage.Visibility = Visibility.Visible;
+
+            Enter.Visibility = Visibility.Collapsed;
+            NameInput.Visibility = Visibility.Collapsed;
+           
+        }
+
+      
+       
+
+        private void Next1_Click(object sender, RoutedEventArgs e)
+        {
+          
+            if (index <= text0.Count)
+            {
+                
+                Talk1.Text = text0[index];
+
+                if (index < (text0.Count - 1))
+                {
+                    
+                    index++;
+
+                }
+
+                else
+                {
+
+                    index = 0;
+
+                    Next1.Visibility = Visibility.Collapsed;
+                    ButtonImage.Visibility = Visibility.Collapsed;
+
+                    a1image.Visibility = Visibility.Visible;
+                    A3.Visibility = Visibility.Visible;
+                    A4.Visibility = Visibility.Visible;
+
+
+                    a1image.Source = new BitmapImage(new Uri(aimage1[2], UriKind.Relative));
+                    SmartWatch.Visibility = Visibility.Visible;
+
+                }
+
+            }
+        }
+
+        private void A3_Click(object sender, RoutedEventArgs e)
+        {
+
+            Talk1.Text = text2[1];
+            
+            A3.Visibility = Visibility.Collapsed;
+            A4.Visibility = Visibility.Collapsed;
+            a1image.Visibility = Visibility.Collapsed;
+
+            ButtonImage.Visibility = Visibility.Visible;
+            Move.Visibility = Visibility.Visible;
+            
+            
+        }
+
+
+         
+       
+
+        private void A4_Click(object sender, RoutedEventArgs e)
+        {
+           
+            Talk1.Text = "I respect your choice. Please take care. I hope to see you again.";
+
+           
+            a1image.Visibility = Visibility.Collapsed;
+            A3.Visibility = Visibility.Collapsed;
+            A4.Visibility = Visibility.Collapsed;
+
+            ButtonImage.Visibility = Visibility.Visible;
+            Ending1.Visibility = Visibility.Visible;
+
+        }
+
+
+        private void Move_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("Church1.xaml", UriKind.Relative));
+        }
+
+        private void Ending1_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("Ending1.xaml", UriKind.Relative));
+        }
+
+       
+    }
+  
+}
