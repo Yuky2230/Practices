@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WpfApp1
+{
+    /// <summary>
+    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        string input;
+        string nowrate;
+
+        int baserate = 1150;
+        
+        double basew;
+        double noww;
+
+        
+
+        public MainWindow()
+        {
+
+            
+
+        }
+
+        private void Resultbutton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            input = moneyinputbox.Text;
+            int money = int.Parse(input);
+
+            nowrate = Rateinputbox.Text;
+            int newrate = int.Parse(nowrate);
+
+           
+            basew = baserate * money;
+
+           
+            noww = newrate * money;
+
+
+
+           a1.Text = money.ToString("F");
+           a2.Text = basew.ToString("F");
+
+           b1.Text = money.ToString("F");
+           b2.Text = noww.ToString("F");
+
+            double gap = noww / baserate;
+            double gap1 = gap - money;
+
+            double gap2 = noww - basew;
+
+
+            double percent = gap2 * 100 / noww;
+
+
+            c1.Text = gap1.ToString("F");
+            c2.Text = gap2.ToString("F");
+            c3.Text = percent.ToString("F");
+
+            double fee = 0.02;
+            double fee1 = gap2 * fee;
+            double fee2 = gap2 - fee1;
+
+           
+            double leftpercent = fee2 * 100 / noww;
+
+            d1.Text = fee1.ToString("F");
+            d2.Text = fee2.ToString("F");
+            d3.Text = leftpercent.ToString("F");
+
+           
+
+        }
+    }
+}
